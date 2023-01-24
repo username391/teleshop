@@ -1,0 +1,10 @@
+Flask==2.2.2
+Flask_Admin==1.6.0
+Flask_Login==0.6.2
+peewee==3.15.4
+pyTelegramBotAPI==4.9.0
+requests==2.28.1
+toml==0.10.2
+Werkzeug==2.2.2
+WTForms==3.0.1
+YooMoney==0.1.0
