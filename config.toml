@@ -1,0 +1,10 @@
+
+["database"]
+database = "shop_db"
+user = "postgres"
+password = "12010712"
+host = "localhost"
+port = 5432
+
+["bot"]
+token = "5971475602:AAFxzZMXd-Hje0cnimQFY4cKKbO4vHnAzv8"
