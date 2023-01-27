@@ -23,6 +23,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+@app.before_request
+def before_request():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+
 def check_pass_hash(password_hash, password) -> bool:
     return check_password_hash(password_hash, password)
 
