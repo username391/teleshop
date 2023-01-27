@@ -78,6 +78,9 @@ class AdminAuthView(ModelView):
             return False
         return True
 
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('login'))
+
 
 class AdminModelView(AdminAuthView):
     form_overrides = dict(password=PasswordField)
