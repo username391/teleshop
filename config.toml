@@ -2,7 +2,7 @@
 ["database"]
 database = "shop_db"
 user = "postgres"
-password = "12010712"
+password = "Zaix0PCpfvBELI6"
 host = "localhost"
 port = 5432
 

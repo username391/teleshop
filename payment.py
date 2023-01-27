@@ -8,15 +8,15 @@ from models import User, Tariff, Setting
 
 def get_reciever() -> str:
     reciever = Setting.select().where(Setting.key == 'yoomoney_reciever')
-    return reciever.first().value_str
+    return reciever.first().value
 
 
 def get_success_url() -> str:
     domain = Setting.select().where(Setting.key == 'server_domain')
-    domain = domain.first().value_str
+    domain = domain.first().value
 
     url = Setting.select().where(Setting.key == 'yoomoney_success_url')
-    return domain + url.first().value_str
+    return domain + url.first().value
 
 
 def create_payment_link(amount: int, label: str, title: str) -> str:
