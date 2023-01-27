@@ -61,9 +61,7 @@ class Task(BaseModel):
 
 class Setting(BaseModel):
     key = CharField(unique=True)
-    value_int = IntegerField(default=-1)
-    value_str = CharField(default='')
-    value_bool = BooleanField(default=False)
+    value = CharField(default='')
 
 
 if __name__ == '__main__':
@@ -79,4 +77,4 @@ if __name__ == '__main__':
         Setting.insert(key='yoomoney_token').execute()
         Setting.insert(key='yoomoney_reciever').execute()
         Setting.insert(key='yoomoney_success_url').execute()
-        Setting.insert(key='server_domain', value_str='http://localhost:5000').execute()
+        Setting.insert(key='server_domain', value='http://localhost:5000').execute()
