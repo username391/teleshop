@@ -51,6 +51,8 @@ def logout():
 
 @app.route('/payment_success', methods=['GET', 'POST'])
 def get_payment():
+    print(request.form)
+    print(request.args)
     response = request.json
     with open('response_payment.json', 'w', encoidng='utf-8') as f:
         json.dump(response, f, indent=4, ensure_ascii=False)
