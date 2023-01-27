@@ -25,7 +25,7 @@ login_manager.init_app(app)
 
 @app.before_request
 def before_request():
-    if not current_user.is_authenticated:
+    if not current_user.is_authenticated and request.endpoint != 'login':
         return redirect(url_for('login'))
 
 
