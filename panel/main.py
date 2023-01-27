@@ -97,7 +97,7 @@ def run() -> None:
     admin.add_view(AdminAuthView(Task, name='Заказы'))
     admin.add_view(AdminAuthView(Setting, name='Настройки'))
 
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
 
 
 if __name__ == '__main__':
