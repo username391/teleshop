@@ -10,7 +10,7 @@ from peewee import (
     PrimaryKeyField,
     ForeignKeyField,
 )
-from peewee_validates import validates
+from peewee_validates import validate
 from datetime import datetime, timedelta
 from flask_login import UserMixin
 
