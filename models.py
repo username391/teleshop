@@ -9,8 +9,8 @@ from peewee import (
     DateTimeField,
     PrimaryKeyField,
     ForeignKeyField,
-    validates
 )
+from peewee_validates import validates
 from datetime import datetime, timedelta
 from flask_login import UserMixin
 
