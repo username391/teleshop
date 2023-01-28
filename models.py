@@ -8,8 +8,10 @@ from peewee import (
     FloatField,
     DateTimeField,
     PrimaryKeyField,
-    ForeignKeyField
+    ForeignKeyField,
+    validates
 )
+from datetime import datetime, timedelta
 from flask_login import UserMixin
 
 db = PostgresqlDatabase(**CONFIG['database'])
@@ -47,6 +49,14 @@ class User(BaseModel):
     tariff = ForeignKeyField(Tariff, related_name='user_tariff')
     reports_left = IntegerField(default=0)
     expire_at = DateTimeField(default=None, null=True)
+
+    @validates('tariff')
+    def validate_tariff(self, tariff):
+        if tariff.by_date:
+            self.expire_at = datetime.now() + timedelta(days=tariff.total)
+        else:
+            self.reports_left = tariff.total
+        return tariff
 
 
 class Task(BaseModel):
