@@ -10,8 +10,3 @@ WTForms==3.0.1
 YooMoney==0.1.0
 peewee-wtf
 psycopg2
-# peewee_validates
-
-# git clone https://github.com/timster/peewee-validates.git
-# git fetch origin pull/13/head:fix_python3.11
-
