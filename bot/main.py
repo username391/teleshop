@@ -54,6 +54,24 @@ def apply_tariff(user: User, tariff: Tariff) -> None:
     user.save()
 
 
+def apply_tariff_if_correct(label: str, amount: float) -> None:
+    """ Получает на вход метку платежа и его сумму. Если все верно - применяет тариф """
+    try:
+        uid, tid, _ = label.split('-')
+        uid, tid = int(uid), int(tid)
+    except ValueError:
+        return
+    user = User.select().where(User.telegram_id == uid).first()
+    if not user:
+        return
+    tariff = Tariff.select().where(Tariff.id == tid).first()
+    if not tariff:
+        return
+    if tariff.price <= amount:
+        apply_tariff(user, tariff)
+        send_message(user, ms.PAYMENT_SUCCESS)
+
+
 def end_tariff(user: User) -> None:
     """ Удаляем закончившийся тариф """
     user.tariff = ZERO_TARIFF
