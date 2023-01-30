@@ -113,6 +113,9 @@ def is_allowed(user: User) -> bool:
         return True
     if not user.tariff or user.tariff.id == 0:
         return False
+    if user.tariff.by_date and not user.expire_at:
+        # странный фикс странного бага
+        return False
     if user.tariff.by_date and user.expire_at > dt.now():
         return True
     if not user.tariff.by_date and user.reports_left:
