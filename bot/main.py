@@ -224,7 +224,7 @@ def show_tariffes(user: User) -> None:
 def show_ref(msg: telebot.types.Message, user: User) -> None:
     """ Отправляет пользователю сообщение с текущим количеством рефов и его реф ссылкой """
     ref_count = len(User.select().where(User.ref == user.id))
-    print(BOT_URL)
+    print(ms.REF.format(url=f'{BOT_URL}?start={user.telegram_id}', count=ref_count))
     send_message(
         user=user,
         text=ms.REF.format(url=f'{BOT_URL}?start={user.telegram_id}', count=ref_count),
