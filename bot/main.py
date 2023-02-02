@@ -227,8 +227,8 @@ def show_ref(msg: telebot.types.Message, user: User) -> None:
     print(ms.REF.format(url=f'{BOT_URL}?start={user.telegram_id}', count=ref_count))
     send_message(
         user=user,
-        text=ms.REF.format(url=f'{"BOT_URL"}?start={user.telegram_id}', count=ref_count),
-        # kb=ms.MAIN_KB
+        text=ms.REF,#.format(url=f'{"BOT_URL"}?start={user.telegram_id}', count=ref_count),
+        kb=ms.MAIN_KB
     )
 
 
