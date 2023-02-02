@@ -91,13 +91,14 @@ def send_message(
     text: str,
     kb: telebot.types.ReplyKeyboardMarkup | telebot.types.InlineKeyboardMarkup | None = None,
     callback: typing.Callable | None = None,
-    attachment: str | None = None
+    attachment: str | None = None,
+    parse_mode: str = 'markdown'
 ) -> None:
     """ Отправляет пользователю сообщение и регистрирует callback """
     uid = user.telegram_id
     callback = callback if callback else handle_keyboard
     if not attachment:
-        bot.send_message(uid, text, reply_markup=kb, parse_mode='markdown')
+        bot.send_message(uid, text, reply_markup=kb, parse_mode=parse_mode)
     else:
         with open(attachment, 'rb') as f:
             # bot.send_video(uid, f, caption=text, reply_markup=kb)
@@ -225,12 +226,12 @@ def show_ref(msg: telebot.types.Message, user: User) -> None:
     """ Отправляет пользователю сообщение с текущим количеством рефов и его реф ссылкой """
     ref_count = len(User.select().where(User.ref == user.id))
     ref_url = f'{BOT_URL}?start={user.telegram_id}'
-    print(ref_url)
 
     send_message(
         user=user,
         text=ms.REF.format(url=ref_url, count=ref_count),
-        kb=ms.MAIN_KB
+        kb=ms.MAIN_KB,
+        parse_mode='html'
     )
 
 
