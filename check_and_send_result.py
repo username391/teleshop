@@ -1,23 +1,21 @@
+import os.path
+import pathlib
+
 from bot import send_message, ms
 from models import Task
+
+current_dir = pathlib.Path(__file__).parent.resolve()
 
 
 if __name__ == '__main__':
     ready_tasks = Task.select().where(Task.ready is True and Task.sent is False)
     for task in ready_tasks:
         if task.ok:
-            send_message(task.user, ms.REPORT_READY, attachment=task.result_file_dir)
+            send_message(
+                task.user,
+                ms.REPORT_READY,
+                attachment=os.path.join(current_dir, task.result_file_dir))
         else:
             send_message(task.user, ms.REPORT_FAILED)
-    
-
-
-
-class Task(BaseModel):
-    id = PrimaryKeyField()
-    user = ForeignKeyField(User, related_name='user_task')
-    url = CharField()
-    result_file_dir = CharField(default='')
-    ok = BooleanField(default=False)
-    comment = CharField(default='')
-    ready = BooleanField(default=False)
+        task.sent = True
+        task.save()
