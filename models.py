@@ -55,8 +55,8 @@ class Task(BaseModel):
     url = CharField()
     result_file_dir = CharField(default='')
     ok = BooleanField(default=False)
-    comment = CharField(default='')
     ready = BooleanField(default=False)
+    sent = BooleanField(default=False)
 
 
 class Setting(BaseModel):
@@ -69,12 +69,14 @@ if __name__ == '__main__':
         tables = [Admin, User, Task]
         # tables = [Tariff]
         tables = [Setting]
+        tables = [Task]
         db.drop_tables(tables)
         db.create_tables(tables)
 
         # create settings
         # YOOMONEY_TOKEN, RECIEVER
-        Setting.insert(key='yoomoney_token').execute()
-        Setting.insert(key='yoomoney_reciever').execute()
-        Setting.insert(key='yoomoney_success_url').execute()
-        Setting.insert(key='server_domain', value='http://localhost:5000').execute()
+        # Setting.insert(key='yoomoney_token').execute()
+        # Setting.insert(key='yoomoney_reciever').execute()
+        # Setting.insert(key='yoomoney_success_url').execute()
+        # Setting.insert(key='server_domain', value='http://localhost:5000').execute()
+        Setting.insert(key='yoomoney_secret', value='').execute()
