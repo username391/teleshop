@@ -14,7 +14,9 @@ if __name__ == '__main__':
             send_message(
                 task.user,
                 ms.REPORT_READY,
-                attachment=os.path.join(current_dir, task.result_file_dir))
+                # attachment=os.path.join(current_dir, task.result_file_dir))
+                attachment=task.result_file_dir
+            )
         else:
             send_message(task.user, ms.REPORT_FAILED)
         task.sent = True
