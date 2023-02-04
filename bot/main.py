@@ -281,7 +281,7 @@ def handle_keyboard(msg: telebot.types.Message, user: User):
     if text == ms.REF_BTN:
         return show_ref(msg, user)
     if text == ms.SUPPORT_BTN:
-        return send_message(user, ms.SUPPORT, kb=ms.MAIN_KB)
+        return send_message(user, ms.SUPPORT, kb=ms.MAIN_KB, parse_mode='html')
     return send_message(user, ms.UNKNOWN_MESSAGE, kb=ms.MAIN_KB)
 
 
