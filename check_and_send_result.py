@@ -8,6 +8,7 @@ current_dir = pathlib.Path(__file__).parent.resolve()
 
 
 if __name__ == '__main__':
+    print(len(Task.select()))
     ready_tasks = Task.select().where(Task.ready and not Task.sent)
     print(len(ready_tasks))
     for task in ready_tasks:
