@@ -12,7 +12,7 @@ from peewee import (
 )
 from flask_login import UserMixin
 
-db = PostgresqlDatabase(**CONFIG['database'])
+db = PostgresqlDatabase(**CONFIG['database'], autorollback=True)
 
 
 class BaseModel(Model):

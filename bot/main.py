@@ -375,11 +375,6 @@ def main(msg: telebot.types.Message, user: User):
         # либо пользователь уже пользовался ботом
         send_message(user, ms.MAIN, ms.MAIN_KB)
 
-    # DELETE THIS (FIXME:)
-    if msg.text == '/change':
-        user.has_key = not user.has_key
-        user.save()
-
 
 def run() -> None:
     on_start()
