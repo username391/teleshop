@@ -66,7 +66,7 @@ def logout():
 @app.route('/payment_success', methods=['GET', 'POST'])
 def get_payment():
     data = request.form.to_dict(flat=True)
-    amount = float(data.get('amount', 0.0))
+    amount = float(data.get('withdraw_amount', 0.0))
     label = data.get('label', '')
     apply_tariff_if_correct(label, amount)
     return '', 200
