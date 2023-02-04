@@ -73,7 +73,8 @@ def apply_tariff_if_correct(label: str, amount: float) -> None:
         return
     if tariff.price <= amount:
         apply_tariff(user, tariff)
-        send_message(user, ms.PAYMENT_SUCCESS)
+        desc = f'{tariff.total} {"дней" if tariff.by_date else "отчетов"}'
+        send_message(user, ms.PAYMENT_SUCCESS.format(tariff=desc))
     else:
         print('пользователь заплатил не ту цену')
 
