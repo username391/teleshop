@@ -117,9 +117,9 @@ def run() -> None:
         name='Админка',
         template_mode='bootstrap2',
         index_view=MyHomeView(),
-        base_template='admin/my_base.html'
+        # base_template='admin/my_base.html'
     )
-    admin.base_template = 'admin/my_base.html'
+    # admin.base_template = 'admin/my_base.html'
 
     admin.add_view(AdminAuthView(User, name="Пользователи"))
     admin.add_view(AdminModelView(Admin, name='Админы', endpoint="admins"))
