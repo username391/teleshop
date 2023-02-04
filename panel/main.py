@@ -107,8 +107,10 @@ class AdminModelView(AdminAuthView):
 class MyHomeView(AdminIndexView):
     @expose('/')
     def index(self):
-        arg1 = 'Hello'
-        return self.render('admin/home.html', arg1=arg1)
+        domain = Setting.select().where(Setting.key == 'server_domain').first().value
+        url_part = Setting.select().where(Setting.key == 'yoomoney_success_url').first().value
+        success_url = f'{domain}{url_part}'
+        return self.render('admin/home.html', success_url=success_url)
 
 
 def run() -> None:
