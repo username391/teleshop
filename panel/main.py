@@ -7,6 +7,7 @@ from flask import Flask, request, render_template, redirect, url_for, flash
 from models import User, Admin, Tariff, Task, Setting
 from string import digits, ascii_lowercase
 from flask_admin.contrib.peewee import ModelView
+from flask_admin import AdminIndexView, expose
 from flask_login import login_user, logout_user, current_user, LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import PasswordField
@@ -103,8 +104,21 @@ class AdminModelView(AdminAuthView):
             model.password_hash = generate_password_hash(form.password_hash.data)
 
 
+class MyHomeView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        arg1 = 'Hello'
+        return self.render('admin/home.html', arg1=arg1)
+
+
 def run() -> None:
-    admin = flask_admin.Admin(app, name='Админка', template_mode='bootstrap2')
+    admin = flask_admin.Admin(
+        app,
+        name='Админка',
+        template_mode='bootstrap2',
+        index_view=MyHomeView(),
+        base_template='admin/my_base.html'
+    )
     admin.base_template = 'admin/my_base.html'
 
     admin.add_view(AdminAuthView(User, name="Пользователи"))
