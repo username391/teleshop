@@ -10,7 +10,7 @@ current_dir = pathlib.Path(__file__).parent.resolve()
 if __name__ == '__main__':
     ready_tasks = Task.select().where(Task.ready == True and Task.sent == False)
     for task in ready_tasks:
-        print(task.result_file_dir)
+        print(task.url)
         if task.ok:
             send_message(
                 task.user,
