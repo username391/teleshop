@@ -8,7 +8,7 @@ current_dir = pathlib.Path(__file__).parent.resolve()
 
 
 if __name__ == '__main__':
-    ready_tasks = Task.select().where(Task.ready == True and Task.sent == False)
+    ready_tasks = Task.select().where(Task.ready == True, Task.sent == False)
     for task in ready_tasks:
         print(task.url)
         if task.ok:
