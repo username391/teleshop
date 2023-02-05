@@ -54,6 +54,7 @@ class Task(BaseModel):
     user = ForeignKeyField(User, related_name='user_task')
     url = CharField()
     result_file_dir = CharField(default='')
+    started = BooleanField(default=False)
     ok = BooleanField(default=False)
     ready = BooleanField(default=False)
     sent = BooleanField(default=False)
@@ -79,4 +80,4 @@ if __name__ == '__main__':
         # Setting.insert(key='yoomoney_reciever').execute()
         # Setting.insert(key='yoomoney_success_url').execute()
         # Setting.insert(key='server_domain', value='http://localhost:5000').execute()
-        Setting.insert(key='yoomoney_secret', value='').execute()
+        # Setting.insert(key='yoomoney_secret', value='').execute()
