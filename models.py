@@ -9,6 +9,7 @@ from peewee import (
     DateTimeField,
     PrimaryKeyField,
     ForeignKeyField,
+    BigIntegerField
 )
 from flask_login import UserMixin
 
@@ -38,7 +39,7 @@ class Tariff(BaseModel):
 
 
 class User(BaseModel):
-    telegram_id = IntegerField(unique=True)
+    telegram_id = BigIntegerField(unique=True)
     username = CharField(default='', null=True)
     balance = FloatField(default=0.0)
     has_trial = BooleanField(default=True)
@@ -70,7 +71,7 @@ if __name__ == '__main__':
         tables = [Admin, User, Task]
         # tables = [Tariff]
         tables = [Setting]
-        tables = [Task]
+        tables = [Task, User]
         db.drop_tables(tables)
         db.create_tables(tables)
 
