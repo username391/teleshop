@@ -73,7 +73,11 @@ def apply_tariff_if_correct(label: str, amount: float) -> None:
         return
     if tariff.price <= amount:
         apply_tariff(user, tariff)
-        desc = f'{tariff.total} {"дней" if tariff.by_date else "отчетов"}'
+        if tariff.by_date:
+            desc = f'{tariff.total} {ms.day_form(tariff.total)}'
+        else:
+            desc = f'{tariff.total} {ms.report_form(tariff.total)}'
+        # desc = f'{tariff.total} {"дней" if tariff.by_date else "отчетов"}'
         send_message(user, ms.PAYMENT_SUCCESS.format(tariff=desc))
     else:
         print('пользователь заплатил не ту цену')
@@ -185,7 +189,7 @@ def get_tariffes_keyboard(user: User) -> telebot.types.InlineKeyboardMarkup:
     for i in range(len(tariffes) // 2 + 1):
         buttons_row = []
         for tariff in tariffes[i*2:i*2+2]:
-            pay_url = new_payment(user, tariff)
+            pay_url = new_payment(user, tariff, BOT_URL)
             button = telebot.types.InlineKeyboardButton(
                 tariff.name,
                 url=pay_url
@@ -283,6 +287,8 @@ def handle_keyboard(msg: telebot.types.Message, user: User):
         return show_ref(msg, user)
     if text == ms.SUPPORT_BTN:
         return send_message(user, ms.SUPPORT, kb=ms.MAIN_KB, parse_mode='html')
+    if text.startswith('/'):
+        return main(msg)
     return send_message(user, ms.UNKNOWN_MESSAGE, kb=ms.MAIN_KB)
 
 

@@ -19,7 +19,7 @@ def get_success_url() -> str:
     return domain + url.first().value
 
 
-def create_payment_link(amount: int, label: str, title: str) -> str:
+def create_payment_link(amount: int, label: str, title: str, bot_url: str) -> str:
     return Quickpay(
         receiver=get_reciever(),
         quickpay_form='shop',
@@ -27,14 +27,14 @@ def create_payment_link(amount: int, label: str, title: str) -> str:
         paymentType='SB',
         sum=amount,
         label=label,
-        successURL=get_success_url()
+        successURL=bot_url
     ).redirected_url
 
 
-def new_payment(user: User, tariff: Tariff) -> str:
+def new_payment(user: User, tariff: Tariff, bot_url: str) -> str:
     label = f'{user.telegram_id}-{tariff.id}-{random.randint(9999, 99999999)}'
     # label = f'{int(time.time())}-{random.randint(9999, 99999999)}'
-    payment_url = create_payment_link(tariff.price, label, tariff.name)
+    payment_url = create_payment_link(tariff.price, label, tariff.name, bot_url)
     # Payment.insert(user=user, tariff=tariff, label=label).execute()
     return payment_url
 
