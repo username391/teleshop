@@ -118,10 +118,10 @@ def create_task(user: User, url: str, trial: bool = True) -> bool:
     Task.insert(user=user, url=url).execute()
 
 
-def is_allowed(user: User) -> bool:
+def is_allowed(user: User, dont_check_trial: bool = False) -> bool:
     """ True, если у пользователя есть возможность запросить отчет, False - если нет """
     print('Is allowed?')
-    if user.has_trial:
+    if user.has_trial and not dont_check_trial:
         return True
     if not user.tariff or user.tariff.id == 0:
         return False
@@ -361,7 +361,7 @@ def check_payment_handler(msg: telebot.types.CallbackQuery, user: User) -> None:
 @bot.message_handler()
 @get_user
 def main(msg: telebot.types.Message, user: User):
-    if not user.has_key and msg.text == '/start':
+    if not is_allowed(user, True) and msg.text == '/start':
         # у пользователя нету оплаченного тарифа и он впервые написал боту,
         # предлагаем ему попробовать бесплатно
         if user.ref:
